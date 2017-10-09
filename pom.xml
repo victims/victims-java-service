@@ -116,9 +116,10 @@
 									spawn="true">
 									<arg value="-jar" />
 									<arg value="${project.artifactId}-${project.version}-fat.jar" />
-							        <arg value="-conf" />
-                                    <arg value="${project.build.directory}/test-classes/my-it-config.json" />
-                                </exec>
+									<arg value="-conf" />
+									<arg
+										value="${project.build.directory}/test-classes/my-it-config.json" />
+								</exec>
 							</target>
 						</configuration>
 					</execution>

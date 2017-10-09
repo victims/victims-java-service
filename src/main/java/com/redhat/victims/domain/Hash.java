@@ -13,14 +13,12 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
 public class Hash {
-	private final String id;
 	private String hash;
 	private String name;
 	private String format;
     private List<File> files;
     
     public Hash(String hash, String name, String format, List<String> cves, String submitter, List<File> files) {
-    		this.id = "";
     		this.hash = hash;
     		this.name = name;
     		this.format = format;
@@ -28,7 +26,6 @@ public class Hash {
     }
     
     public Hash(JarFile jarFile) {
-    	this.id = "";
     	this.hash = jarFile.getFingerprint().get(Algorithms.SHA512);
     	this.name = jarFile.getFileName();
     	this.format = "SHA512";
@@ -50,11 +47,6 @@ public class Hash {
     public JsonObject asJson() {
     	return new JsonObject(Json.encode(this));
     }
-    
-    
-	public String getId() {
-		return id;
-	}
 
 	public String getHash() {
 		return hash;

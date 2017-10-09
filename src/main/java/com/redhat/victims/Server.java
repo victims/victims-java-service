@@ -15,6 +15,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.web.FileUpload;
@@ -63,11 +64,6 @@ public class Server extends AbstractVerticle {
 	}
 
 	private void hash(RoutingContext ctx) {
-		processFiles(ctx);
-		ctx.response().end();
-	}
-
-	private void processFiles(RoutingContext ctx) {
 		Set<FileUpload> fileUploads = ctx.fileUploads();
 		JsonArray hashes = new JsonArray();
 		for (FileUpload f : fileUploads) {
@@ -82,15 +78,17 @@ public class Server extends AbstractVerticle {
 					LOG.warning("Invalid file type: " + filetype);
 					break;
 				}
-				Hash hash = new Hash(jarFile);
-				hashes.add(hash.asJson());
+				Hash hash1 = new Hash(jarFile);
+				hashes.add(hash1.asJson());
 			} catch (IOException e) {
 				ctx.response().setStatusCode(500).setStatusMessage(e.getMessage());
 				LOG.severe("Error reading from file: " + f.uploadedFileName());
-			} finally {
-				cleanup();
-			}
+			} 
 		}
+		Buffer buffer = Buffer.buffer(hashes.encodePrettily());
+		ctx.response().putHeader("content-type", "application/json");
+		ctx.response().end(buffer);
+		cleanup();
 	}
 
 	private void cleanup() {

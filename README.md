@@ -11,7 +11,17 @@ the `hash` endpoint is called passing some files to hash. This service uses the 
 #### POST /hash 
 
 ```
-curl -X POST "library=@src/test/resources/struts2-core-2.5.12.jar" http://localhost:8080/hash
+$ curl -X POST -F "library2=@src/test/resources/camel-snakeyaml-2.17.4.jar" http://localhost:8080/hash
+
+[ {
+  "hash" : "3cfc3c06a141ba3a43c6c0a01567dbb7268839f75e6367ae0346bab90507ea09c9ecd829ecec3f030ed727c0beaa09da8c08835a8ddc27054a03f800fa049a0a",
+  "name" : "camel-snakeyaml-2.17.4.jar",
+  "format" : "SHA512",
+  "files" : [ {
+    "name" : "org/apache/camel/component/snakeyaml/SnakeYAMLDataFormat",
+    "hash" : "cb1e80599bd7de814b63ad699849360b6c5d6dd33b7b7a2da6df753197eee137541c6bfde704c5ab8521e6b7dfb436d57f102f369fc0af36738668e4d1d0ff55"
+  } ]
+} ]
 ```
 
 
@@ -20,7 +30,7 @@ curl -X POST "library=@src/test/resources/struts2-core-2.5.12.jar" http://localh
 Checks the service is up and can access the database
 
 ```
-[jshepher@localhost victims-api]$ curl -v http://localhost:8080/healthz
+$ curl -v http://localhost:8080/healthz
 
 > GET /healthz HTTP/1.1
 > Host: localhost:8080
@@ -40,7 +50,7 @@ Run the Integration Tests:
 `mvn clean verify`
 
 Run a local service:
-`java -jar java -jar target/victims-java-hash-1.0-SNAPSHOT-fat.jar`
+`java -jar java -jar target/victims-java-service-1.0-SNAPSHOT-fat.jar`
 
 ### Running with Docker
 
