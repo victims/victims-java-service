@@ -50,7 +50,7 @@ Run the Integration Tests:
 `mvn clean verify`
 
 Run a local service:
-`java -jar java -jar target/victims-java-service-1.0-SNAPSHOT-fat.jar`
+`java -jar target/victims-java-service-1.0-SNAPSHOT-fat.jar`
 
 ### Running with Docker
 
