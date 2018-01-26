@@ -15,7 +15,7 @@ clean:
 	mvn clean
 
 image: clean
-	sudo s2i build . registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest victims-java
+	sudo s2i build -E .s2i/environment . registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest victims-java
 
 test:
 	mvn clean verify
